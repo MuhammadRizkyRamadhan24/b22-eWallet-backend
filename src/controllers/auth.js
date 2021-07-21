@@ -2,15 +2,13 @@ const UserModel = require('../models/users')
 const { Op } = require('sequelize')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const { validationResult } = require('express-validator')
+const TokenFCM = require('../models/tokenFcm')
 
 exports.login = async (req, res) => {
   const { phone_number, password } = req.body
   const user = await UserModel.findAll({
     where: {
-      phone_number: {
-        [Op.substring]: phone_number
-      }
+      phone_number: phone_number
     }
   })
   const result = user[0]
@@ -41,6 +39,29 @@ exports.login = async (req, res) => {
       message: 'Wrong Email Or Password',
     })
   }
+}
+
+exports.registerToken = async (req, res) => {
+  const {token} = req.body;
+  const {id} = req.authUser;
+  const [fcm, created] = await TokenFCM.findOrCreate({
+    where: {
+      token
+    },
+    defaults: {
+      userId: id
+    }
+  })
+
+  if(!created){
+    fcm.userId = id;
+    await fcm.save()
+  }
+
+  return res.json({
+    success: true,
+    message: 'Token saved'
+  })
 }
 
 exports.register = async (req, res) => {

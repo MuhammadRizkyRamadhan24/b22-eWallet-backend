@@ -1,3 +1,4 @@
+const { codeTransaction } = require('../helpers/time');
 const TransactionModel = require('../models/transaction')
 const UserModel = require('../models/users')
 
@@ -11,7 +12,18 @@ exports.createTransaction = async (req, res) => {
     req.body.trxFee = parseInt(req.body.trxFee)
   }
   if (user) {
-    const trx = await TransactionModel.create(req.body)
+    if(req.body.deductedBalance > user.balance){
+      return res.status(401).json({
+        success: false,
+        message: 'Not enough balance'
+      })
+    }
+    const refNo = codeTransaction()
+    const setData = {
+      ...req.body,
+      refNo
+    }
+    const trx = await TransactionModel.create(setData)
     const total = req.body.deductedBalance + req.body.trxFee
     user.set('balance', user.balance - total)
     await user.save()

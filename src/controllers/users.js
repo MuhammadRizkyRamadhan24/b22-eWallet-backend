@@ -62,9 +62,10 @@ exports.listUsers = async (req, res) => {
 }
 
 exports.detailUser = async (req, res) => {
-  const { id } = req.params
+  const {id} = req.authUser;
   const user = await UserModel.findByPk(id)
   if (user !== null) {
+    user.balance = Number(user.balance).toLocaleString('en')
     return res.json({
       success: true,
       message: 'Detail User',
@@ -88,7 +89,7 @@ exports.createUser = async (req, res) => {
 }
 
 exports.updateUser = async (req, res) => {
-  const { id } = req.params
+  const {id} = req.authUser;
   const user = await UserModel.findByPk(id)
   if (user) {
     const oldData = await UserModel.findAll({

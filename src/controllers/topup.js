@@ -3,7 +3,8 @@ const UserModel = require('../models/users')
 const { Op } = require('sequelize')
 
 exports.createTopup = async (req, res) => {
-  const user = await UserModel.findByPk(req.body.userId)
+  const {id} = req.authUser;
+  const user = await UserModel.findByPk(id)
   if (typeof req.body.deductedBalance === 'string') {
     req.body.deductedBalance = parseInt(req.body.deductedBalance)
   }
