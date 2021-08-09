@@ -1,5 +1,5 @@
 require('dotenv').config()
-const {APP_PORT} = process.env
+const {PORT} = process.env
 const express = require('express')
 const sequelize = require('./src/config/sequelize')
 const rootRouter = require('./src/routes')
@@ -15,7 +15,7 @@ app.use(express.urlencoded({extended: false}))
 app.use('/static', express.static(path.join(__dirname, 'src/public')))
 app.use('/', rootRouter)
 
-app.listen(APP_PORT, () => {
-  console.log(`App Running on Port ${APP_PORT}`)
+app.listen(PORT, () => {
+  console.log(`App Running on Port ${PORT}`)
   sequelize.sync()
 })
