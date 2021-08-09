@@ -13,7 +13,6 @@ exports.login = async (req, res) => {
   })
   const result = user[0]
   if (result !== undefined) {
-    console.log(result);
     const compare = await bcrypt.compare(password, result.password)
     console.log(compare);
     if (compare) {
