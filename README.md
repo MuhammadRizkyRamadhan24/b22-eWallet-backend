@@ -28,7 +28,7 @@ Backend server for OAO E-Wallet Apps, build with Express Js, Node Js, and Javasc
 5. Create a database with the name **ewallet_backend**, and Import file sql to **phpmyadmin**
 6. Open Postman desktop application or Chrome web app extension that has installed before
 7. Choose HTTP Method and enter request url.(ex. localhost:3000/)
-8. You can see all the end point [here](https://documenter.getpostman.com/view/15940810/U16ksR8T)
+8. You can see all the end point [here](https://www.getpostman.com/collections/2cee55de0455b2850213)
 
 # Feature
 <ul>
