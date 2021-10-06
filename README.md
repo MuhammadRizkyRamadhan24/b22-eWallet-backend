@@ -1,4 +1,4 @@
-<h1 align="center">Backend - Cuanku RESTfull API</h1>
+<h1 align="center">Backend - OAO E-Wallet Apps RESTfull API</h1>
 
 Backend server for OAO E-Wallet Apps, build with Express Js, Node Js, and Javascript
 
